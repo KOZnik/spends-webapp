@@ -4,7 +4,8 @@ import java.time.LocalDateTime
 import javax.ejb.Stateless
 import javax.inject.Inject
 import javax.json.{Json, JsonObject}
-import javax.ws.rs.{GET, POST, Path}
+import javax.ws.rs._
+import javax.ws.rs.core.{MediaType, Response}
 
 import pl.koznik.spends.control.Converters._
 import pl.koznik.spends.control.{Constants, SpendsRepository}
@@ -18,21 +19,23 @@ class SpendsResource {
   var spendsRepository: SpendsRepository = _
 
   @GET
+  @Produces(Array(MediaType.APPLICATION_JSON))
   def all(): List[JsonObject] = {
     spendsRepository.findByNamedQuery(Constants.FIND_ALL_SPENDS_QUERY)
       .map((spend: Spend) =>
       Json.createObjectBuilder()
         .add("created", spend.getCreated)
         .add("category", spend.getCategory.toString)
+        .add("amount", spend.getAmount)
         .build())
       .toList
   }
 
-  //TODO implement
   @POST
-  def add(): Unit = {
-    val spend = new Spend(LocalDateTime.now(), Category.CAR)
+  def add(@FormParam("category") categoryName: String, @FormParam("amount") amount: Double): Response = {
+    val spend = new Spend(LocalDateTime.now(), Category.forName(categoryName).orElse(Option.apply(Category.UNKNOWN)).get, amount)
     spendsRepository create spend
+    Response.ok().build()
   }
 
 }

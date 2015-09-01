@@ -23,17 +23,22 @@ class Spend {
   @BeanProperty
   var category: Category = _
 
-  //TODO add amount
+  @BeanProperty
+  var amount: Double = _
 
-  def this(created: LocalDateTime, category: Category) = {
+  def this(created: LocalDateTime, category: Category, amount: Double) = {
     this
     this.created = created
     this.category = category
+    this.amount = amount
   }
 
 }
 
 object Category extends Enumeration {
   type Category = Value
-  val FOOD, MY, WIFE, SON, CAR, TAXES, DIFFERENT = Value
+  val FOOD, MY, WIFE, SON, CAR, TAXES, DIFFERENT, UNKNOWN = Value
+
+  def forName(name: String) = if (values.exists(_.toString == name)) Option.apply(withName(name)) else Option.empty
+
 }
