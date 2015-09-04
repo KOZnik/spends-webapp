@@ -1,0 +1,41 @@
+<html ng-app="helloApp" class="ng-scope">
+<head>
+    <title>Spends</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="javascript/angular.js"></script>
+    <script type="text/javascript" src="javascript/ui-bootstrap-0.13.4.js"></script>
+    <script type="text/javascript" src="javascript/app.js"></script>
+</head>
+
+<body ng-controller="AllSpendsController">
+<div class="page-header">
+    <h1>Spends</h1>
+</div>
+<form class="form-horizontal" role="form">
+
+    <div class="row">
+        <div class="col-sm-2" ng-repeat="categoryName in categories">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{categoryName}}</h3>
+                </div>
+                <div class="panel-body">
+                    Panel content
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="form-group">
+        <label class="col-md-2 control-label">Type Your Name</label>
+
+        <div class="col-md-3">
+            <input type="text" ng-model="name" class="form-control" value="{{name}}"/>
+            <span>Hello {{ name }}!</span>
+        </div>
+    </div>-->
+</form>
+
+</body>
+</html>

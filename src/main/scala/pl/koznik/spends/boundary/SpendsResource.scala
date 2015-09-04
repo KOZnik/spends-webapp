@@ -31,6 +31,11 @@ class SpendsResource {
       .toList
   }
 
+  @GET
+  @Path("categories")
+  @Produces(Array(MediaType.APPLICATION_JSON))
+  def allCategories(): Set[String] = Category.values.map(c => c.toString)
+
   @POST
   def add(@FormParam("category") categoryName: String, @FormParam("amount") amount: Double): Response = {
     val spend = new Spend(LocalDateTime.now(), Category.forName(categoryName).orElse(Option.apply(Category.UNKNOWN)).get, amount)

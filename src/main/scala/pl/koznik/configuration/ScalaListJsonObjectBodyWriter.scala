@@ -1,4 +1,4 @@
-package pl.koznik.spends.boundary
+package pl.koznik.configuration
 
 import java.io.{OutputStream, PrintStream}
 import java.lang.annotation.Annotation
