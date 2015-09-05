@@ -24,7 +24,7 @@ class SpendsResource {
   def all(@QueryParam("forYear") forYear: Int, @QueryParam("forMonth") forMonth: Int): java.util.Map[String, java.util.List[SpendResponse]] = {
     JavaConversions.mapAsJavaMap(
       spendsRepository.spendForMonth(forYear, forMonth)
-        .groupBy(spend => spend.getCategory.toString)
+        .groupBy(_.getCategory.toString)
         .mapValues(list => list.map(spend => new SpendResponse(spend.getCreated, spend.getAmount)))
     )
   }
@@ -34,7 +34,7 @@ class SpendsResource {
 
   @GET
   @Path("categories")
-  def allCategories(): java.util.Set[String] = JavaConversions.setAsJavaSet(Category.values.map(c => c.toString))
+  def allCategories(): java.util.Set[String] = JavaConversions.setAsJavaSet(Category.values.map(_.toString))
 
   @POST
   def add(@FormParam("category") categoryName: String, @FormParam("amount") amount: Double): Response = {
