@@ -12,13 +12,15 @@ trait CrudEjb[E] {
     entity
   }
 
-  def findByNamedQuery(queryName : String) : java.util.List[E] = manager.createNamedQuery(queryName, manifest.runtimeClass).getResultList.asInstanceOf[java.util.List[E]]
-
-  //def readAll()(implicit m: Manifest[E]) : java.util.List[E] = manager createNamedQuery ("findAll" + m.runtimeClass.getSimpleName, classOf[E]) getResultList
+  def findByNamedQuery(queryName: String, parameters: Map[String, AnyRef] = Map.empty): java.util.List[E] = {
+    val query = manager.createNamedQuery(queryName, manifest.runtimeClass)
+    parameters.foreach { case (key: String, value: AnyRef) => query.setParameter(key, value) }
+    query.getResultList.asInstanceOf[java.util.List[E]]
+  }
 
   def read(id: Long)(implicit manifest: Manifest[E]): E = manager.find(manifest.runtimeClass, id).asInstanceOf[E]
 
   def update(entity: E): E = manager merge entity
 
-  def delete(entity: E) { manager remove entity }
+  def delete(entity: E) = manager remove entity
 }

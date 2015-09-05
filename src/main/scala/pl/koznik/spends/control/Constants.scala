@@ -1,5 +1,5 @@
 package pl.koznik.spends.control
 
 object Constants {
-  val FIND_ALL_SPENDS_QUERY = "findAllSpends"
+  val SPENDS_IN_MONTH = "spendsInMonth"
 }

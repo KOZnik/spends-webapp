@@ -1,5 +1,5 @@
-var helloApp = angular.module("helloApp", ['ui.bootstrap']);
-helloApp.controller('AllSpendsController', AllSpendsController);
+var spendsApp = angular.module("spendsApp", ['ui.bootstrap']);
+spendsApp.controller('AllSpendsController', AllSpendsController);
 
 function AllSpendsController($scope, $http, $document, $modal, orderByFilter) {
     $scope.name = 'Lukasz';
