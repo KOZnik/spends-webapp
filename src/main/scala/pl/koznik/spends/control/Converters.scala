@@ -5,12 +5,16 @@ import java.time.{LocalDateTime, ZoneId}
 import java.util.Date
 import javax.persistence.{AttributeConverter, Converter}
 
-import scala.collection.JavaConverters
+import scala.collection.{JavaConversions, JavaConverters}
 
 object Converters {
 
-  implicit def collectionToScalaStream[E](collection: java.util.Collection[E]): Stream[E] = {
-    JavaConverters.asScalaIteratorConverter(collection.iterator()).asScala.toStream
+  implicit def collectionToScalaList[E](collection: java.util.Collection[E]): List[E] = {
+    JavaConverters.asScalaIteratorConverter(collection.iterator()).asScala.toList
+  }
+
+  implicit def sequenceToJavaList[E](seq: Seq[E]): java.util.List[E] = {
+    JavaConversions.seqAsJavaList(seq)
   }
 
   implicit def localDateTimeFormat(dateTime: LocalDateTime): String = {
