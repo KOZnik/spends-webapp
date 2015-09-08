@@ -1,6 +1,7 @@
 package pl.koznik.spends.boundary
 
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 import javax.ws.rs._
 import javax.ws.rs.core.{MediaType, Response}
@@ -25,20 +26,20 @@ class SpendsResource {
     JavaConversions.mapAsJavaMap(
       spendsRepository.spendForMonth(forYear, forMonth)
         .groupBy(_.getCategory.toString)
-        .mapValues(list => list.map(spend => new SpendResponse(spend.getCreated, spend.getAmount)))
+        .mapValues(list => list.map(spend => new SpendResponse(spend.getCreated.format(DateTimeFormatter.ofPattern("HH:mm")), spend.getDescription, spend.getAmount)))
     )
   }
 
   @XmlRootElement
-  class SpendResponse(@BeanProperty val created: String, @BeanProperty val amount: Double)
+  class SpendResponse(@BeanProperty val created: String, @BeanProperty val description: String, @BeanProperty val amount: Double)
 
   @GET
   @Path("categories")
   def allCategories(): java.util.Set[String] = JavaConversions.setAsJavaSet(Category.values.map(_.toString))
 
   @POST
-  def add(@FormParam("category") categoryName: String, @FormParam("amount") amount: Double): Response = {
-    val spend = new Spend(LocalDateTime.now(), Category.forName(categoryName).orElse(Option.apply(Category.UNKNOWN)).get, amount)
+  def add(@FormParam("category") categoryName: String, @FormParam("amount") amount: Double, @FormParam("description") description: String): Response = {
+    val spend = new Spend(LocalDateTime.now(), Category.forName(categoryName).orElse(Option.apply(Category.UNKNOWN)).get, amount, description)
     spendsRepository create spend
     Response.ok().build()
   }

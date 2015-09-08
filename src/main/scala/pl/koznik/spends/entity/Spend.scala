@@ -26,11 +26,15 @@ class Spend {
   @BeanProperty
   var amount: Double = _
 
-  def this(created: LocalDateTime, category: Category, amount: Double) = {
+  @BeanProperty
+  var description: String = _
+
+  def this(created: LocalDateTime, category: Category, amount: Double, description: String = "") = {
     this
     this.created = created
     this.category = category
     this.amount = amount
+    this.description = description
   }
 
 }

@@ -1,41 +1,76 @@
-<html ng-app="helloApp" class="ng-scope">
+<html ng-app="spendsApp" class="ng-scope">
 <head>
     <title>Spends</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="http://bootswatch.com/journal/bootstrap.css">
     <script src="javascript/angular.js"></script>
+    <script src="http://code.angularjs.org/1.0.8/i18n/angular-locale_pl.js"></script>
     <script type="text/javascript" src="javascript/ui-bootstrap-0.13.4.js"></script>
     <script type="text/javascript" src="javascript/app.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body ng-controller="AllSpendsController">
-<div class="page-header">
-    <h1>Spends</h1>
-</div>
-<form class="form-horizontal" role="form">
 
+<!--<div class="page-header">
+    <h1>Spends</h1>
+</div>-->
+
+<div class="container-fluid">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-body"
+                        aria-expanded="false"></button>
+                <a class="navbar-brand" href="#">Wydatki</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-body">
+                <form class="navbar-form navbar-left">
+                    <button type="submit" class="btn btn-primary">Dodaj</button>
+                </form>
+                <form class="navbar-form navbar-right">
+                    <div class="input-group">
+                        <input id="datepicker" type="text" class="form-control" datepicker-options="dateOptions"
+                               datepicker-popup="MM-yyyy" ng-model="dt" is-open="status.opened" close-text="Zamknij"
+                               current-text="Dziś" clear-text="Wyczyść"
+                               ng-change="monthChanged()"/>
+                        <span class="input-group-btn">
+                               <button type="button" class="btn btn-default glyphicon glyphicon-calendar"
+                                       ng-click="open($event)"></button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
     <div class="row">
-        <div class="col-sm-2" ng-repeat="categoryName in categories">
+        <div class="col-sm-6" ng-repeat="category in categories | orderBy">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{categoryName}}</h3>
+                    <h3 class="panel-title">{{category}}</h3>
                 </div>
-                <div class="panel-body">
-                    Panel content
-                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Dodano</th>
+                        <th>Opis</th>
+                        <th>Kwota</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="spend in allSpends[category]">
+                        <!--<th scope="row">1</th>-->
+                        <td>{{spend.created}}</td>
+                        <td>{{spend.description}}</td>
+                        <td>{{spend.amount}}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-
-    <!--<div class="form-group">
-        <label class="col-md-2 control-label">Type Your Name</label>
-
-        <div class="col-md-3">
-            <input type="text" ng-model="name" class="form-control" value="{{name}}"/>
-            <span>Hello {{ name }}!</span>
-        </div>
-    </div>-->
-</form>
-
+</div>
 </body>
 </html>

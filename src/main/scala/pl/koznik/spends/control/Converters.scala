@@ -1,6 +1,5 @@
 package pl.koznik.spends.control
 
-import java.time.format.DateTimeFormatter
 import java.time.{LocalDateTime, ZoneId}
 import java.util.Date
 import javax.persistence.{AttributeConverter, Converter}
@@ -15,10 +14,6 @@ object Converters {
 
   implicit def sequenceToJavaList[E](seq: Seq[E]): java.util.List[E] = {
     JavaConversions.seqAsJavaList(seq)
-  }
-
-  implicit def localDateTimeFormat(dateTime: LocalDateTime): String = {
-    dateTime format DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
   }
 
 }
