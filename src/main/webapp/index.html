@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body ng-controller="AllSpendsController">
+<body ng-controller="SpendsController">
 
 <!--<div class="page-header">
     <h1>Spends</h1>
@@ -35,7 +35,7 @@
                         <input id="datepicker" type="text" class="form-control" datepicker-options="dateOptions"
                                datepicker-popup="MM-yyyy" ng-model="dt" is-open="status.opened" close-text="Zamknij"
                                current-text="Dziś" clear-text="Wyczyść"
-                               ng-change="monthChanged()"/>
+                               ng-change="searchSpendsForMonth()"/>
                         <span class="input-group-btn">
                                <button type="button" class="btn btn-default glyphicon glyphicon-calendar"
                                        ng-click="open($event)"></button>
@@ -60,7 +60,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="spend in allSpends[category]">
+                    <tr ng-repeat="spend in spends[category]">
                         <!--<th scope="row">1</th>-->
                         <td>{{spend.created}}</td>
                         <td>{{spend.description}}</td>

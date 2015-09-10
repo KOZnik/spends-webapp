@@ -1,27 +1,21 @@
 var spendsApp = angular.module("spendsApp", ['ui.bootstrap']);
-spendsApp.controller('AllSpendsController', AllSpendsController);
+spendsApp.controller('SpendsController', SpendsController);
 
-function AllSpendsController($scope, $http, $document, $modal, orderByFilter) {
+function SpendsController($scope, SpendsFactory) {
     $scope.dt = new Date();
     initDatePicker($scope);
-    searchSpendsForChosenMonth($scope, $http);
-    $scope.monthChanged = function () {
-        searchSpendsForChosenMonth($scope, $http)
-    };
-    $http.get('./resources/spends/categories').
-        success(function (data) {
-            $scope.categories = data;
-        });
-}
 
-function searchSpendsForChosenMonth($scope, $http) {
-    $http({
-        url: './resources/spends',
-        method: "GET",
-        params: {forYear: $scope.dt.getFullYear(), forMonth: $scope.dt.getMonth() + 1}
-    }).success(function (data) {
-        $scope.allSpends = data;
-    });
+    $scope.searchSpendsForMonth = function () {
+        SpendsFactory.spendsForMonth($scope.dt.getFullYear(), $scope.dt.getMonth() + 1).then(function () {
+            $scope.spends = SpendsFactory.spends;
+        });
+    };
+    SpendsFactory.spendsForMonth($scope.dt.getFullYear(), $scope.dt.getMonth() + 1).then(function () {
+            $scope.spends = SpendsFactory.spends;
+        });
+    SpendsFactory.spendsCategories().then(function () {
+            $scope.categories = SpendsFactory.categories;
+        });
 }
 
 function initDatePicker($scope) {
@@ -37,3 +31,28 @@ function initDatePicker($scope) {
         initDate: new Date()
     };
 }
+
+spendsApp.factory('SpendsFactory',
+    function SpendsFactory ($http) {
+        var factory = {};
+        factory.spends = [];
+        factory.categories = [];
+
+        factory.spendsForMonth = function(year, month) {
+            return $http({
+                url: './resources/spends',
+                method: "GET",
+                params: {forYear: year, forMonth: month}
+            }).success(function (data) {
+                factory.spends = data;
+            });
+        };
+
+        factory.spendsCategories = function () {
+            return $http.get('./resources/spends/categories').
+                success(function (data) {
+                    factory.categories = data;
+                });
+        };
+        return factory;
+    });
