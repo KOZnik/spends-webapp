@@ -4,6 +4,7 @@ spendsApp.controller('SpendsController', SpendsController);
 function SpendsController($scope, SpendsFactory) {
     $scope.dt = new Date();
     initDatePicker($scope);
+    $scope.messages = siteMessages;
 
     $scope.searchSpendsForMonth = function () {
         SpendsFactory.spendsForMonth($scope.dt.getFullYear(), $scope.dt.getMonth() + 1).then(function () {

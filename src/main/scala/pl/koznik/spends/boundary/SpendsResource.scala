@@ -7,6 +7,8 @@ import javax.ws.rs._
 import javax.ws.rs.core.{MediaType, Response}
 import javax.xml.bind.annotation.XmlRootElement
 
+import com.typesafe.config.ConfigFactory
+import com.typesafe.config.Config
 import pl.koznik.spends.control.Converters._
 import pl.koznik.spends.control.SpendsRepository
 import pl.koznik.spends.entity.{Category, Spend}
@@ -35,7 +37,12 @@ class SpendsResource {
 
   @GET
   @Path("categories")
-  def allCategories(): java.util.Set[String] = JavaConversions.setAsJavaSet(Category.values.map(_.toString))
+  def allCategories(): java.util.Map[String, String] = {
+    val conf: Config = ConfigFactory.load()
+    JavaConversions.mapAsJavaMap(
+      Category.values.map(_.toString) map (category => category -> conf.getString("category." + category)) toMap
+    )
+  }
 
   @POST
   def add(@FormParam("category") categoryName: String, @FormParam("amount") amount: Double, @FormParam("description") description: String): Response = {

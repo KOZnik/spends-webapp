@@ -1,6 +1,6 @@
 <html ng-app="spendsApp" class="ng-scope">
 <head>
-    <title>Spends</title>
+    <title>Wydatki</title>
     <meta charset="utf-8">
     <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="http://bootswatch.com/journal/bootstrap.css">
@@ -8,6 +8,7 @@
     <script src="http://code.angularjs.org/1.0.8/i18n/angular-locale_pl.js"></script>
     <script type="text/javascript" src="javascript/ui-bootstrap-0.13.4.js"></script>
     <script type="text/javascript" src="javascript/app.js"></script>
+    <script type="text/javascript" src="javascript/locale.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
@@ -24,17 +25,17 @@
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-body"
                         aria-expanded="false"></button>
-                <a class="navbar-brand" href="#">Wydatki</a>
+                <a class="navbar-brand" href="#">{{messages.common.pageTitle}}</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-body">
                 <form class="navbar-form navbar-left">
-                    <button type="submit" class="btn btn-primary">Dodaj</button>
+                    <button type="submit" class="btn btn-primary">{{messages.common.buttonAddText}}</button>
                 </form>
                 <form class="navbar-form navbar-right">
                     <div class="input-group">
                         <input id="datepicker" type="text" class="form-control" datepicker-options="dateOptions"
-                               datepicker-popup="MM-yyyy" ng-model="dt" is-open="status.opened" close-text="Zamknij"
-                               current-text="Dziś" clear-text="Wyczyść"
+                               datepicker-popup="MM-yyyy" ng-model="dt" is-open="status.opened" close-text={{messages.datePicker.close}}
+                               current-text="{{messages.datePicker.today}}" clear-text="{{messages.datePicker.clear}}"
                                ng-change="searchSpendsForMonth()"/>
                         <span class="input-group-btn">
                                <button type="button" class="btn btn-default glyphicon glyphicon-calendar"
@@ -54,9 +55,9 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Dodano</th>
-                        <th>Opis</th>
-                        <th>Kwota</th>
+                        <th>{{messages.spendsTable.columnAdd}}</th>
+                        <th>{{messages.spendsTable.columnDescription}}</th>
+                        <th>{{messages.spendsTable.columnAmount}}</th>
                     </tr>
                     </thead>
                     <tbody>
