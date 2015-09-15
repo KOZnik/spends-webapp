@@ -47,10 +47,10 @@
         </div>
     </nav>
     <div class="row">
-        <div class="col-sm-6" ng-repeat="category in categories | orderBy">
+        <div class="col-sm-6" ng-repeat="category in categoryKeys | orderBy">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{category}}</h3>
+                    <h3 class="panel-title">{{categories[category]}}</h3>
                 </div>
                 <table class="table">
                     <thead>

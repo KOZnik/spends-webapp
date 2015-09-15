@@ -16,6 +16,7 @@ function SpendsController($scope, SpendsFactory) {
         });
     SpendsFactory.spendsCategories().then(function () {
             $scope.categories = SpendsFactory.categories;
+            $scope.categoryKeys = Object.keys($scope.categories);
         });
 }
 
