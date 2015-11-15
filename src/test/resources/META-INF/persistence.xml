@@ -3,11 +3,14 @@
     <persistence-unit name="integration-test" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>pl.koznik.spends.entity.Spend</class>
+        <class>pl.koznik.spends.entity.CategoryStatistics</class>
+        <class>pl.koznik.spends.control.LocalDateTimeConverter</class>
         <class>pl.koznik.spends.control.LocalDateConverter</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:./workshops;create=true"/>
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
         </properties>
     </persistence-unit>
 </persistence>

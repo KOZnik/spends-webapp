@@ -1,6 +1,6 @@
 package pl.koznik.spends.control
 
-import java.time.{LocalDateTime, ZoneId}
+import java.time.{LocalDate, LocalDateTime, ZoneId}
 import java.util.Date
 import javax.persistence.{AttributeConverter, Converter}
 
@@ -19,7 +19,7 @@ object Converters {
 }
 
 @Converter(autoApply = true)
-class LocalDateConverter extends AttributeConverter[LocalDateTime, Date] {
+class LocalDateTimeConverter extends AttributeConverter[LocalDateTime, Date] {
 
   override def convertToDatabaseColumn(date: LocalDateTime): Date = {
     Date.from(date.atZone(ZoneId.systemDefault()).toInstant)
@@ -27,6 +27,20 @@ class LocalDateConverter extends AttributeConverter[LocalDateTime, Date] {
 
   override def convertToEntityAttribute(date: Date): LocalDateTime = {
     LocalDateTime.from(date.toInstant)
+  }
+
+}
+
+
+@Converter(autoApply = true)
+class LocalDateConverter extends AttributeConverter[LocalDate, Date] {
+
+  override def convertToDatabaseColumn(date: LocalDate): Date = {
+    Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant)
+  }
+
+  override def convertToEntityAttribute(date: Date): LocalDate = {
+    LocalDate.from(date.toInstant)
   }
 
 }
