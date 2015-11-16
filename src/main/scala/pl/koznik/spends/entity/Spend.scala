@@ -8,7 +8,7 @@ import pl.koznik.spends.entity.Category.Category
 import scala.beans.BeanProperty
 
 @Entity
-@NamedQuery(name = "spendsInMonth", query = "SELECT s FROM Spend s WHERE s.created BETWEEN :monthBeginDate AND :monthEndDate")
+@NamedQuery(name = "Spend.spendsInMonth", query = "SELECT s FROM Spend s WHERE s.created BETWEEN :monthBeginDate AND :monthEndDate")
 class Spend {
 
   @Id
@@ -37,4 +37,8 @@ class Spend {
     this.description = description
   }
 
+}
+
+object Spend {
+  val SPENDS_IN_MONTH = "Spend.spendsInMonth"
 }

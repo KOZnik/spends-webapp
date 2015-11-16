@@ -7,6 +7,10 @@ import scala.beans.BeanProperty
 
 @Entity
 @Table(name = "category_statistics")
+@NamedQueries(Array(
+  new NamedQuery(name = "CategoryStatistics.all", query = "SELECT s FROM CategoryStatistics s"),
+  new NamedQuery(name = "CategoryStatistics.byCategory", query = "SELECT s FROM CategoryStatistics s WHERE s.category = :category")
+))
 class CategoryStatistics {
 
   @Id
@@ -32,4 +36,9 @@ class CategoryStatistics {
   @CollectionTable(name = "category_statistics_amount", joinColumns = Array(new JoinColumn(name = "id")))
   var amounts: java.util.Map[LocalDate, java.lang.Double] = _
 
+}
+
+object CategoryStatistics {
+  val ALL_CATEGORIES_STATISTICS = "CategoryStatistics.all"
+  val CATEGORY_STATISTICS = "CategoryStatistics.byCategory"
 }

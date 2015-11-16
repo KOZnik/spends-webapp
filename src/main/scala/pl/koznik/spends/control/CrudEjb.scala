@@ -1,6 +1,8 @@
 package pl.koznik.spends.control
 
-import javax.persistence.{EntityManager, PersistenceContext}
+import javax.persistence.{EntityManager, NoResultException, PersistenceContext}
+
+import pl.koznik.spends.control.Converters._
 
 trait CrudEjb[E] {
 
@@ -12,7 +14,17 @@ trait CrudEjb[E] {
     entity
   }
 
-  def findByNamedQuery(queryName: String, parameters: Map[String, AnyRef] = Map.empty): java.util.List[E] = {
+  def findOneByNamedQuery(queryName: String, parameters: Map[String, AnyRef] = Map.empty): Option[E] = {
+    val query = manager.createNamedQuery(queryName, manifest.runtimeClass)
+    parameters.foreach { case (key: String, value: AnyRef) => query.setParameter(key, value) }
+    try {
+      Option.apply(query.getSingleResult.asInstanceOf[E])
+    } catch {
+      case e: NoResultException => Option.empty[E]
+    }
+  }
+
+  def findByNamedQuery(queryName: String, parameters: Map[String, AnyRef] = Map.empty): List[E] = {
     val query = manager.createNamedQuery(queryName, manifest.runtimeClass)
     parameters.foreach { case (key: String, value: AnyRef) => query.setParameter(key, value) }
     query.getResultList.asInstanceOf[java.util.List[E]]

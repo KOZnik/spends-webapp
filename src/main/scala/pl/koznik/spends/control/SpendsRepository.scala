@@ -14,8 +14,8 @@ class SpendsRepository extends CrudEjb[Spend] {
     this.manager = manager
   }
 
-  def spendForMonth(year: Int, month: Int): java.util.List[Spend] =
-    findByNamedQuery(Constants.SPENDS_IN_MONTH,
+  def spendForMonth(year: Int, month: Int): List[Spend] =
+    findByNamedQuery(Spend.SPENDS_IN_MONTH,
       Map("monthBeginDate" -> LocalDateTimeCalculator.beginOfMonth(year, month), "monthEndDate" -> LocalDateTimeCalculator.endOfMonth(year, month)))
 
 }
