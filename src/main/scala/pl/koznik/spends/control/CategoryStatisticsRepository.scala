@@ -1,10 +1,10 @@
 package pl.koznik.spends.control
 
-import java.time.{LocalDate, LocalDateTime}
-import java.util.function.BiFunction
+import java.time.LocalDate
 import javax.ejb.{LocalBean, Stateless}
 import javax.persistence.EntityManager
 
+import pl.koznik.spends.control.Converters._
 import pl.koznik.spends.entity.Category.Category
 import pl.koznik.spends.entity.CategoryStatistics
 
@@ -22,24 +22,23 @@ class CategoryStatisticsRepository extends CrudEjb[CategoryStatistics] {
   def categoryStatistics(category: Category): Option[CategoryStatistics] =
     findOneByNamedQuery(CategoryStatistics.CATEGORY_STATISTICS, Map("category" -> category))
 
-  def recomputedStatisticsFor(stat: CategoryStatistics, amount: Double, date: LocalDateTime): CategoryStatistics = {
-    if (stat.getAmounts.containsKey(date.toLocalDate)) {
-      stat.getAmounts.compute(date.toLocalDate, func)
-    } else {
+  def dateNotInCurrentMonth(date: LocalDate): Boolean = !date.withDayOfMonth(1).equals(LocalDate.now().withDayOfMonth(1))
 
+  def recalculatedStatisticsFor(stat: CategoryStatistics, amount: Double, date: LocalDate): CategoryStatistics = {
+    stat.getAmounts.put(date, amount + Option.apply(stat.getAmounts.get(date)).getOrElse(0.0).asInstanceOf[Double])
+    if (dateNotInCurrentMonth(date)) {
+      //average month amount recalculation needed
+      val sum = stat.getAmounts.entrySet().filter(entry => dateNotInCurrentMonth(entry.getKey)).map(_.getValue).foldLeft(0.0)(_ + _)
+      stat.setAverageMonthAmount(sum / stat.getAmounts.entrySet().count(entry => dateNotInCurrentMonth(entry.getKey)))
     }
+    stat
   }
 
-  val func = new BiFunction[_ >: LocalDate, _ >: Double, _ <: Double] {
-    override def apply(t: LocalDate, u: Double): Double = {
-      10.0
-    }
-  }
-
-  def updateStatistics(category: Category, amount: Double, date: LocalDateTime) = {
+  def updateStatistics(category: Category, amount: Double, date: LocalDate) = {
+    val beginOfMonth = date.withDayOfMonth(1)
     categoryStatistics(category) match {
-      case Some(stat) => update(recomputedStatisticsFor(stat, amount, date))
-      case None =>
+      case Some(stat) => update(recalculatedStatisticsFor(stat, amount, beginOfMonth))
+      case None => create(new CategoryStatistics(category = category, amounts = Map(beginOfMonth -> amount))) //average for new category is 0
     }
   }
 

@@ -6,6 +6,7 @@
         <class>pl.koznik.spends.entity.CategoryStatistics</class>
         <class>pl.koznik.spends.control.LocalDateTimeConverter</class>
         <class>pl.koznik.spends.control.LocalDateConverter</class>
+        <class>pl.koznik.spends.control.CategoryConverter</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:./workshops;create=true"/>
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>

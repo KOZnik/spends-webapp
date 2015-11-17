@@ -12,10 +12,10 @@ class SpendsRepositoryTest extends org.scalatest.FlatSpec with Matchers with Dat
   val actualDateTime = LocalDateTime.now()
 
   "Repository" should "persist spends" in {
-    transaction.begin()
-    repository.create(new Spend(actualDateTime, Category.CAR, 1))
-    repository.create(new Spend(actualDateTime, Category.DIFFERENT, 50.1))
-    transaction.commit()
+    transactional { () =>
+      repository.create(new Spend(actualDateTime, Category.CAR, 1))
+      repository.create(new Spend(actualDateTime, Category.DIFFERENT, 50.1))
+    }
   }
 
   it should "find persisted spends for month that spends were entered" in {
@@ -23,11 +23,11 @@ class SpendsRepositoryTest extends org.scalatest.FlatSpec with Matchers with Dat
   }
 
   it should "find no spends for month without spends entered" in {
-    repository.spendForMonth(2014, 1) should be ('empty)
+    repository.spendForMonth(2014, 1) should be('empty)
   }
 
   it should "throw exception for broken date specified" in {
-    an [DateTimeException] should be thrownBy repository.spendForMonth(2014, 32)
+    an[DateTimeException] should be thrownBy repository.spendForMonth(2014, 32)
   }
 
 }

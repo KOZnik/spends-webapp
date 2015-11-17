@@ -1,9 +1,11 @@
 package pl.koznik.spends.entity
 
 import java.time.LocalDate
+import java.util
 import javax.persistence._
 
 import scala.beans.BeanProperty
+import scala.collection.JavaConversions
 
 @Entity
 @Table(name = "category_statistics")
@@ -35,6 +37,13 @@ class CategoryStatistics {
   @Column(name = "amount")
   @CollectionTable(name = "category_statistics_amount", joinColumns = Array(new JoinColumn(name = "id")))
   var amounts: java.util.Map[LocalDate, java.lang.Double] = _
+
+  def this(category: Category.Category, averageMonthAmount: Double = 0, amounts: Map[LocalDate, java.lang.Double]) = {
+    this
+    this.category = category
+    this.averageMonthAmount = averageMonthAmount
+    this.amounts = new util.HashMap(JavaConversions.mapAsJavaMap(amounts))
+  }
 
 }
 
