@@ -3,7 +3,7 @@
     <persistence-unit name="integration-test" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>pl.koznik.spends.core.entity.Spend</class>
-        <class>pl.koznik.spends.statistics.entity.CategoryStatistics</class>
+        <class>pl.koznik.spends.statistics.entity.MonthCategoryStatistics</class>
         <class>pl.koznik.spends.common.control.LocalDateTimeConverter</class>
         <class>pl.koznik.spends.common.control.LocalDateConverter</class>
         <class>pl.koznik.spends.common.control.CategoryConverter</class>
