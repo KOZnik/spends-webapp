@@ -1,10 +1,10 @@
-package pl.koznik.spends.control
+package pl.koznik.spends.statistics.control
 
 import java.time.LocalDate
 
 import org.scalatest.{FlatSpec, Matchers}
-import pl.koznik.configuration.DatabaseTest
-import pl.koznik.spends.entity.Category
+import pl.koznik.spends.common.control.DatabaseTest
+import pl.koznik.spends.core.entity.Category
 
 class CategoryStatisticsRepositoryTest extends FlatSpec with Matchers with DatabaseTest {
 

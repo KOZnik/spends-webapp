@@ -1,12 +1,14 @@
-package pl.koznik.spends.control
+package pl.koznik.spends.statistics.control
 
 import java.time.LocalDate
 import javax.ejb.{LocalBean, Stateless}
 import javax.persistence.EntityManager
 
-import pl.koznik.spends.control.Converters._
-import pl.koznik.spends.entity.Category.Category
-import pl.koznik.spends.entity.CategoryStatistics
+import pl.koznik.spends.common.control.Converters._
+import pl.koznik.spends.common.control.{Converters, CrudEjb}
+import pl.koznik.spends.core.entity.Category
+import pl.koznik.spends.core.entity.Category.Category
+import pl.koznik.spends.statistics.entity.CategoryStatistics
 
 @Stateless
 @LocalBean

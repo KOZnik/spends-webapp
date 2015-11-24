@@ -1,8 +1,10 @@
-package pl.koznik.spends.entity
+package pl.koznik.spends.statistics.entity
 
 import java.time.LocalDate
 import java.util
 import javax.persistence._
+
+import pl.koznik.spends.core.entity.Category
 
 import scala.beans.BeanProperty
 import scala.collection.JavaConversions

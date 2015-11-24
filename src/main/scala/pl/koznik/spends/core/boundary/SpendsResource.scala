@@ -1,4 +1,4 @@
-package pl.koznik.spends.boundary
+package pl.koznik.spends.core.boundary
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -7,11 +7,11 @@ import javax.ws.rs._
 import javax.ws.rs.core.{MediaType, Response}
 import javax.xml.bind.annotation.XmlRootElement
 
-import com.typesafe.config.ConfigFactory
-import com.typesafe.config.Config
-import pl.koznik.spends.control.Converters._
-import pl.koznik.spends.control.SpendsRepository
-import pl.koznik.spends.entity.{Category, Spend}
+import com.typesafe.config.{Config, ConfigFactory}
+import pl.koznik.spends.common.control.Converters
+import Converters._
+import pl.koznik.spends.core.control.SpendsRepository
+import pl.koznik.spends.core.entity.{Category, Spend}
 
 import scala.beans.BeanProperty
 import scala.collection.JavaConversions

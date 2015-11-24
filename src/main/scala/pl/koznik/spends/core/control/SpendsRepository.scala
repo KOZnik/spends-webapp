@@ -1,9 +1,10 @@
-package pl.koznik.spends.control
+package pl.koznik.spends.core.control
 
 import javax.ejb.{LocalBean, Stateless}
 import javax.persistence.EntityManager
 
-import pl.koznik.spends.entity.Spend
+import pl.koznik.spends.common.control.{CrudEjb, LocalDateTimeCalculator}
+import pl.koznik.spends.core.entity.Spend
 
 @Stateless
 @LocalBean

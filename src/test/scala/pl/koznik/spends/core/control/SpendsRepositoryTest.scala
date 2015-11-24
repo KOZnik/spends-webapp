@@ -1,10 +1,10 @@
-package pl.koznik.spends.control
+package pl.koznik.spends.core.control
 
 import java.time.{DateTimeException, LocalDateTime}
 
 import org.scalatest.Matchers
-import pl.koznik.configuration.DatabaseTest
-import pl.koznik.spends.entity.{Category, Spend}
+import pl.koznik.spends.common.control.DatabaseTest
+import pl.koznik.spends.core.entity.{Category, Spend}
 
 class SpendsRepositoryTest extends org.scalatest.FlatSpec with Matchers with DatabaseTest {
 

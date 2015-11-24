@@ -1,11 +1,11 @@
-package pl.koznik.spends.control
+package pl.koznik.spends.common.control
 
 import java.time.{LocalDate, LocalDateTime, ZoneId}
 import java.util.Date
 import java.util.function.BiFunction
 import javax.persistence.{AttributeConverter, Converter}
 
-import pl.koznik.spends.entity.Category
+import pl.koznik.spends.core.entity.Category
 
 import scala.collection.{JavaConversions, JavaConverters}
 

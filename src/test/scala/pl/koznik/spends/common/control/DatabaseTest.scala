@@ -1,4 +1,4 @@
-package pl.koznik.configuration
+package pl.koznik.spends.common.control
 
 import javax.persistence.Persistence
 

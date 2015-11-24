@@ -1,9 +1,9 @@
-package pl.koznik.spends.entity
+package pl.koznik.spends.core.entity
 
 import java.time.LocalDateTime
 import javax.persistence._
 
-import pl.koznik.spends.entity.Category.Category
+import Category._
 
 import scala.beans.BeanProperty
 

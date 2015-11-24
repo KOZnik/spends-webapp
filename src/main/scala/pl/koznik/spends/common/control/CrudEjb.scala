@@ -1,8 +1,8 @@
-package pl.koznik.spends.control
+package pl.koznik.spends.common.control
 
 import javax.persistence.{EntityManager, NoResultException, PersistenceContext}
 
-import pl.koznik.spends.control.Converters._
+import pl.koznik.spends.common.control.Converters._
 
 trait CrudEjb[E] {
 

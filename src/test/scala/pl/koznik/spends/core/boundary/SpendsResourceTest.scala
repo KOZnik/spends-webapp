@@ -1,4 +1,4 @@
-package pl.koznik.spends.boundary
+package pl.koznik.spends.core.boundary
 
 import javax.json.JsonObject
 import javax.ws.rs.client.ClientBuilder
@@ -8,7 +8,7 @@ import com.typesafe.config.{Config, ConfigFactory}
 import org.glassfish.jersey.client.ClientConfig
 import org.glassfish.jersey.jsonp.JsonProcessingFeature
 import org.scalatest.{FlatSpec, Matchers}
-import pl.koznik.spends.entity.Category
+import pl.koznik.spends.core.entity.Category
 
 class SpendsResourceTest extends FlatSpec with Matchers {
 

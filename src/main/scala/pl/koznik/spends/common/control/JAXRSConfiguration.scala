@@ -1,4 +1,4 @@
-package pl.koznik.configuration
+package pl.koznik.spends.common.control
 
 import javax.ws.rs.ApplicationPath
 import javax.ws.rs.core.Application

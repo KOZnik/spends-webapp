@@ -1,4 +1,4 @@
-package pl.koznik.spends.entity
+package pl.koznik.spends.core.entity
 
 object Category extends Enumeration {
   type Category = Value

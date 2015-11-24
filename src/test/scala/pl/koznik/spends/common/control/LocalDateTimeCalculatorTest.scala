@@ -1,4 +1,4 @@
-package pl.koznik.spends.control
+package pl.koznik.spends.common.control
 
 import java.time.LocalDateTime
 
