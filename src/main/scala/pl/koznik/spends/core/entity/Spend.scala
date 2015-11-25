@@ -1,14 +1,14 @@
-package pl.koznik.spends.entity
+package pl.koznik.spends.core.entity
 
 import java.time.LocalDateTime
 import javax.persistence._
 
-import pl.koznik.spends.entity.Category.Category
+import Category._
 
 import scala.beans.BeanProperty
 
 @Entity
-@NamedQuery(name = "spendsInMonth", query = "SELECT s FROM Spend s WHERE s.created BETWEEN :monthBeginDate AND :monthEndDate")
+@NamedQuery(name = "Spend.spendsInMonth", query = "SELECT s FROM Spend s WHERE s.created BETWEEN :monthBeginDate AND :monthEndDate")
 class Spend {
 
   @Id
@@ -39,10 +39,6 @@ class Spend {
 
 }
 
-object Category extends Enumeration {
-  type Category = Value
-  val FOOD, MY, WIFE, SON, CAR, TAXES, DIFFERENT, UNKNOWN = Value
-
-  def forName(name: String) = if (values.exists(_.toString == name)) Option.apply(withName(name)) else Option.empty
-
+object Spend {
+  val SPENDS_IN_MONTH = "Spend.spendsInMonth"
 }
