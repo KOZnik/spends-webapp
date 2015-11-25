@@ -1,6 +1,6 @@
 package pl.koznik.spends.common.control
 
-import javax.persistence.{LockModeType, EntityManager, NoResultException, PersistenceContext}
+import javax.persistence.{EntityManager, LockModeType, NoResultException, PersistenceContext}
 
 import pl.koznik.spends.common.control.Converters._
 
@@ -34,7 +34,10 @@ trait CrudEjb[E] {
 
   def read(id: Long)(implicit manifest: Manifest[E]): E = manager.find(manifest.runtimeClass, id, LockModeType.OPTIMISTIC).asInstanceOf[E]
 
-  def update(entity: E): E = manager merge entity
+  def update(entity: E): E = {
+    manager.lock(entity, LockModeType.OPTIMISTIC_FORCE_INCREMENT)
+    manager merge entity
+  }
 
   def delete(entity: E) = manager remove entity
 }
