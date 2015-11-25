@@ -1,6 +1,7 @@
 package pl.koznik.spends.statistics.control
 
 import java.time.LocalDate
+import javax.ejb.{TransactionAttributeType, TransactionAttribute, Stateless}
 import javax.inject.Inject
 
 import pl.koznik.spends.common.control.Converters._
@@ -8,6 +9,7 @@ import pl.koznik.spends.common.control.LocalDateTimeCalculations
 import pl.koznik.spends.core.entity.Category.Category
 import pl.koznik.spends.statistics.entity.MonthCategoryStatistics
 
+@Stateless
 class MonthCategoryStatisticsCalculator extends StatisticsCalculator {
 
   @Inject
@@ -18,6 +20,7 @@ class MonthCategoryStatisticsCalculator extends StatisticsCalculator {
 
   var repository: MonthCategoryStatisticsRepository = _
 
+  @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
   override def recalculateForSpendData(category: Category, amount: Double, date: LocalDate): Unit = {
     val beginOfMonth = date.withDayOfMonth(1)
     repository.byCategory(category) match {

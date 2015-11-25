@@ -1,6 +1,6 @@
 package pl.koznik.spends.common.control
 
-import javax.persistence.{EntityManager, NoResultException, PersistenceContext}
+import javax.persistence.{LockModeType, EntityManager, NoResultException, PersistenceContext}
 
 import pl.koznik.spends.common.control.Converters._
 
@@ -16,6 +16,7 @@ trait CrudEjb[E] {
 
   def findOneByNamedQuery(queryName: String, parameters: Map[String, AnyRef] = Map.empty): Option[E] = {
     val query = manager.createNamedQuery(queryName, manifest.runtimeClass)
+    query.setLockMode(LockModeType.OPTIMISTIC)
     parameters.foreach { case (key: String, value: AnyRef) => query.setParameter(key, value) }
     try {
       Option.apply(query.getSingleResult.asInstanceOf[E])
@@ -26,11 +27,12 @@ trait CrudEjb[E] {
 
   def findByNamedQuery(queryName: String, parameters: Map[String, AnyRef] = Map.empty): List[E] = {
     val query = manager.createNamedQuery(queryName, manifest.runtimeClass)
+    query.setLockMode(LockModeType.OPTIMISTIC)
     parameters.foreach { case (key: String, value: AnyRef) => query.setParameter(key, value) }
     query.getResultList.asInstanceOf[java.util.List[E]]
   }
 
-  def read(id: Long)(implicit manifest: Manifest[E]): E = manager.find(manifest.runtimeClass, id).asInstanceOf[E]
+  def read(id: Long)(implicit manifest: Manifest[E]): E = manager.find(manifest.runtimeClass, id, LockModeType.OPTIMISTIC).asInstanceOf[E]
 
   def update(entity: E): E = manager merge entity
 
