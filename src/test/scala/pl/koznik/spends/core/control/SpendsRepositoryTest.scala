@@ -23,15 +23,21 @@ class SpendsRepositoryTest extends org.scalatest.FlatSpec with Matchers with Dat
   }
 
   it should "find persisted spends for month that spends were entered" in {
-    repository.spendForMonth(actualDateTime.getYear, actualDateTime.getMonthValue) should have size 2
+    transactional { () =>
+      repository.spendForMonth(actualDateTime.getYear, actualDateTime.getMonthValue) should have size 2
+    }
   }
 
   it should "find no spends for month without spends entered" in {
-    repository.spendForMonth(2014, 1) should be('empty)
+    transactional { () =>
+      repository.spendForMonth(2014, 1) should be('empty)
+    }
   }
 
   it should "throw exception for broken date specified" in {
-    an[DateTimeException] should be thrownBy repository.spendForMonth(2014, 32)
+    transactional { () =>
+      an[DateTimeException] should be thrownBy repository.spendForMonth(2014, 32)
+    }
   }
 
   val eventsFake = new Event[Spend] {

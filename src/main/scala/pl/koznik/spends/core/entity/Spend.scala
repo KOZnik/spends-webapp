@@ -29,6 +29,10 @@ class Spend {
   @BeanProperty
   var description: String = _
 
+  @Version
+  @BeanProperty
+  var version: Long = _
+
   def this(created: LocalDateTime, category: Category, amount: Double, description: String = "") = {
     this
     this.created = created
