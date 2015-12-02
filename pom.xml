@@ -83,7 +83,7 @@
         <dependency>
             <groupId>org.scalatest</groupId>
             <artifactId>scalatest_2.11</artifactId>
-            <version>2.2.4</version>
+            <version>2.2.5</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -114,6 +114,13 @@
             <groupId>io.gatling.highcharts</groupId>
             <artifactId>gatling-charts-highcharts</artifactId>
             <version>2.1.7</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- For problems with scala-reflect version of gatling-charts-highcharts and scalatest_2.11 -->
+        <dependency>
+            <artifactId>scala-reflect</artifactId>
+            <groupId>org.scala-lang</groupId>
+            <version>2.11.7</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
