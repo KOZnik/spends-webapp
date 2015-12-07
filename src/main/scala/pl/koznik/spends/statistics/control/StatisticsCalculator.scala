@@ -1,11 +1,9 @@
 package pl.koznik.spends.statistics.control
 
-import java.time.LocalDate
-
-import pl.koznik.spends.core.entity.Category._
+import pl.koznik.spends.core.entity.Spend
 
 trait StatisticsCalculator {
 
-  def recalculateForSpendData(category: Category, amount: Double, date: LocalDate)
+  def recalculateForSpendData(spends: List[Spend])
 
 }

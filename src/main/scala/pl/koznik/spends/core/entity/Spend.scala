@@ -8,7 +8,10 @@ import Category._
 import scala.beans.BeanProperty
 
 @Entity
-@NamedQuery(name = "Spend.spendsInMonth", query = "SELECT s FROM Spend s WHERE s.created BETWEEN :monthBeginDate AND :monthEndDate")
+@NamedQueries(Array(
+  new NamedQuery(name = "Spend.spendsInMonth", query = "SELECT s FROM Spend s WHERE s.created BETWEEN :monthBeginDate AND :monthEndDate"),
+  new NamedQuery(name = "Spend.unprocessed", query = "SELECT s FROM Spend s WHERE s.processed = false")
+))
 class Spend {
 
   @Id
@@ -33,16 +36,21 @@ class Spend {
   @BeanProperty
   var version: Long = _
 
-  def this(created: LocalDateTime, category: Category, amount: Double, description: String = "") = {
+  @BeanProperty
+  var processed: Boolean = _
+
+  def this(created: LocalDateTime, category: Category, amount: Double, description: String = "", processed: Boolean = false) = {
     this
     this.created = created
     this.category = category
     this.amount = amount
     this.description = description
+    this.processed = processed
   }
 
 }
 
 object Spend {
   val SPENDS_IN_MONTH = "Spend.spendsInMonth"
+  val UNPROCESSED_SPENDS = "Spend.unprocessed"
 }

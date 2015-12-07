@@ -1,6 +1,7 @@
 package pl.koznik.spends.statistics.control
 
 import javax.ejb.{LocalBean, Stateless}
+import javax.naming.InitialContext
 import javax.persistence.EntityManager
 
 import pl.koznik.spends.common.control.CrudEjb
@@ -21,4 +22,8 @@ class MonthCategoryStatisticsRepository extends CrudEjb[MonthCategoryStatistics]
   def byCategory(category: Category): Option[MonthCategoryStatistics] =
     findOneByNamedQuery(MonthCategoryStatistics.CATEGORY_STATISTICS, Map("category" -> category))
 
+}
+
+object MonthCategoryStatisticsRepository {
+  def lookup(): MonthCategoryStatisticsRepository = InitialContext.doLookup("java:global/SpendsApp/MonthCategoryStatisticsRepository")
 }
