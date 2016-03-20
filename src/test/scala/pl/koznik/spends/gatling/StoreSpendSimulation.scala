@@ -14,11 +14,12 @@ class StoreSpendSimulation extends Simulation {
 
   val scn = scenario("Store spend")
     .exec(http("Storing spend")
-    .post("/spends-app/resources/spends")
+    .post("/spends/resources/spends")
     .formParam("category", "DIFFERENT")
     .formParam("amount", 10)
-    .formParam("description", "gatling")
+    .formParam("description", "gatling2")
+    .formParam("date", "2016-02-01T10:11:30")
     .check(status.is(200)))
 
-  setUp(scn.inject(atOnceUsers(1000))).protocols(httpProtocol)
+  setUp(scn.inject(atOnceUsers(1))).protocols(httpProtocol)
 }
