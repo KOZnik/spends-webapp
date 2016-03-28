@@ -1,77 +1,39 @@
-<html ng-app="spendsApp" class="ng-scope">
+<html>
 <head>
     <title>Wydatki</title>
-    <meta charset="utf-8">
-    <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
-    <link rel="stylesheet" href="http://bootswatch.com/journal/bootstrap.css">
-    <script src="javascript/angular.js"></script>
-    <script src="http://code.angularjs.org/1.0.8/i18n/angular-locale_pl.js"></script>
-    <script type="text/javascript" src="javascript/ui-bootstrap-0.13.4.js"></script>
-    <script type="text/javascript" src="javascript/app.js"></script>
-    <script type="text/javascript" src="javascript/locale.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 1. Load libraries -->
+    <!-- IE required polyfills, in this exact order -->
+    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+    <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+    <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/bootstrap/theme.css"/>
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="node_modules/primeui/primeui-ng-all.js"></script>
+    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="node_modules/angular2/bundles/http.dev.js"></script>
+    <!-- 2. Configure SystemJS -->
+    <script>
+        System.config({
+            defaultJSExtensions: true,
+            packages: {
+                "/angular2": {"defaultExtension": false}
+            },
+            map: {
+                'primeng': 'node_modules/primeng',
+                'angular2': 'node_modules/angular2'
+            }
+        });
+        System.import('app/main').then(null, console.error.bind(console));
+    </script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
 </head>
-
-<body ng-controller="SpendsController">
-
-<!--<div class="page-header">
-    <h1>Spends</h1>
-</div>-->
-
-<div class="container-fluid">
-
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-body"
-                        aria-expanded="false"></button>
-                <a class="navbar-brand" href="#">{{messages.common.pageTitle}}</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-body">
-                <form class="navbar-form navbar-left">
-                    <button type="submit" class="btn btn-primary">{{messages.common.buttonAddText}}</button>
-                </form>
-                <form class="navbar-form navbar-right">
-                    <div class="input-group">
-                        <input id="datepicker" type="text" class="form-control" datepicker-options="dateOptions"
-                               datepicker-popup="MM-yyyy" ng-model="dt" is-open="status.opened" close-text={{messages.datePicker.close}}
-                               current-text="{{messages.datePicker.today}}" clear-text="{{messages.datePicker.clear}}"
-                               ng-change="searchSpendsForMonth()"/>
-                        <span class="input-group-btn">
-                               <button type="button" class="btn btn-default glyphicon glyphicon-calendar"
-                                       ng-click="open($event)"></button>
-                        </span>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </nav>
-    <div class="row">
-        <div class="col-sm-6" ng-repeat="category in categoryKeys | orderBy">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">{{categories[category]}}</h3>
-                </div>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>{{messages.spendsTable.columnAdd}}</th>
-                        <th>{{messages.spendsTable.columnDescription}}</th>
-                        <th>{{messages.spendsTable.columnAmount}}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="spend in spends[category]">
-                        <!--<th scope="row">1</th>-->
-                        <td>{{spend.created}}</td>
-                        <td>{{spend.description}}</td>
-                        <td>{{spend.amount}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- 3. Display the application -->
+<body>
+<my-app>Loading...</my-app>
 </body>
 </html>
