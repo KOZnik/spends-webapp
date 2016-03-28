@@ -1,0 +1,33 @@
+<div class="row">
+    <form class="form-inline col-md-2 pull-right">
+        <div class="form-group">
+            <label for="date">Data</label>
+            <p-calendar id="date" [(value)]="date" dateFormat="yy-mm-dd" (onSelect)="dateChanged($event)"></p-calendar>
+        </div>
+    </form>
+</div>
+<div class="row" *ngIf="spends">
+    <div class="col-md-6" *ngFor="#category of categoryKeys">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{categories[category]}}</h3>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Dodano</th>
+                    <th>Opis</th>
+                    <th>Kwota</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="#spend of spends[category]">
+                    <td>{{spend.created | date:"dd/MM/yyHH:mm"}}</td>
+                    <td>{{spend.description}}</td>
+                    <td>{{spend.amount}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

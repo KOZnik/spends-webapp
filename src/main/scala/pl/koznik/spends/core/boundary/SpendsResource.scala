@@ -1,7 +1,6 @@
 package pl.koznik.spends.core.boundary
 
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.time.{LocalDateTime, ZoneOffset}
 import javax.inject.Inject
 import javax.validation.constraints.NotNull
 import javax.ws.rs._
@@ -28,12 +27,12 @@ class SpendsResource {
     JavaConversions.mapAsJavaMap(
       spendsRepository.spendForMonth(forYear, forMonth)
         .groupBy(_.getCategory.toString)
-        .mapValues(list => list.map(spend => new SpendResponse(spend.getCreated.format(DateTimeFormatter.ofPattern("HH:mm")), spend.getDescription, spend.getAmount)))
+        .mapValues(list => list.map(spend => new SpendResponse(spend.getCreated.toInstant(ZoneOffset.ofTotalSeconds(60 * 60)).toEpochMilli, spend.getDescription, spend.getAmount)))
     )
   }
 
   @XmlRootElement
-  class SpendResponse(@BeanProperty val created: String, @BeanProperty val description: String, @BeanProperty val amount: Double)
+  class SpendResponse(@BeanProperty val created: Long, @BeanProperty val description: String, @BeanProperty val amount: Double)
 
   @GET
   @Path("categories")
