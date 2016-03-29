@@ -17,10 +17,10 @@ export class SpendService {
         return this.http.get(this._spendsUrl, {search: params})
             .map(res => res.json())
             .do(data => console.log(data))
-            .catch(this.handleError);
+            .catch(SpendService.handleError);
     }
 
-    private handleError(error:Response) {
+    private static handleError(error:Response) {
         console.error(error);
         return Observable.throw(error.json() || 'Server error');
     }

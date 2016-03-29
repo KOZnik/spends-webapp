@@ -1,0 +1,31 @@
+<button class="btn btn-info" data-toggle="collapse" data-target="#testtesttest">Dodaj</button>
+
+<div id="testtesttest" class="collapse panel panel-default">
+    <div class="panel-body">
+        <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+            <div class="form-group">
+                <label for="categories">Kategoria</label>
+                <select id="categories" class="form-control" required [(ngModel)]="spend.category" ngControl="category" #category="ngForm">
+                    <option *ngFor="#category of categories" [value]="category">{{categoryNames[category]}}</option>
+                </select>
+                <div [hidden]="category.valid || category.pristine" class="alert alert-danger">Kategoria jest wymagana!</div>
+            </div>
+            <div class="form-group">
+                <label for="amount">Kwota</label>
+                <input id="amount" type="number" min="0" class="form-control" required [(ngModel)]="spend.amount" ngControl="amount" #amount="ngForm">
+                <div [hidden]="amount.valid || amount.pristine" class="alert alert-danger">Niepoprawna kwota!</div>
+            </div>
+            <div class="form-group">
+                <label for="description">Opis</label>
+                <input id="description" type="text" class="form-control" required [(ngModel)]="spend.description" ngControl="description" #description="ngForm">
+                <div [hidden]="description.valid || description.pristine" class="alert alert-danger">Opis jest wymagany!</div>
+            </div>
+            <div class="form-group">
+                <label for="created">Data</label>
+                <p-calendar id="created" styleClass="form-control" [(value)]="spend.created" dateFormat="yy-mm-dd"></p-calendar>
+            </div>
+
+            <button type="submit" class="btn btn-default" [disabled]="!heroForm.form.valid">Prześlij</button>
+        </form>
+    </div>
+</div>

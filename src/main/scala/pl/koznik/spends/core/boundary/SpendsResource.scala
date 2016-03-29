@@ -36,11 +36,8 @@ class SpendsResource {
 
   @GET
   @Path("categories")
-  def allCategories(): java.util.Map[String, String] = {
-    val conf: Config = ConfigFactory.load()
-    JavaConversions.mapAsJavaMap(
-      Category.values.map(_.toString) map (category => category -> conf.getString("category." + category)) toMap
-    )
+  def allCategoriesKeys(): java.util.List[String] = {
+    Category.values.map(_.toString) toList
   }
 
   @POST

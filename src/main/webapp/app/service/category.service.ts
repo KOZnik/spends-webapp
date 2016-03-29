@@ -14,10 +14,10 @@ export class CategoryService {
         return this.http.get(this._categoriesUrl)
             .map(res => res.json())
             .do(data => console.log(data))
-            .catch(this.handleError);
+            .catch(CategoryService.handleError);
     }
 
-    private handleError(error:Response) {
+    private static handleError(error:Response) {
         console.error(error);
         return Observable.throw(error.json() || 'Server error');
     }

@@ -5,6 +5,7 @@ import {Spend} from "../entity/spend";
 import {ArraySortPipe} from "../pipes/array-sort.pipe";
 import {CategoryService} from "../service/category.service";
 import {SpendService} from "../service/spend.service";
+import {CategoryNames} from "../entity/category-names";
 
 @Component({
     selector: 'my-month',
@@ -14,8 +15,8 @@ import {SpendService} from "../service/spend.service";
 })
 export class MonthComponent implements OnInit {
     date:string = "";
-    categories:{ [key:string]:string; };
-    categoryKeys:string[];
+    categories:string[];
+    categoryNames:CategoryNames = new CategoryNames();
     spends:{ [key:string]:Spend; };
     errorMessage;
 
@@ -30,10 +31,7 @@ export class MonthComponent implements OnInit {
 
     getCategories() {
         this._categoryService.getCategories().subscribe(
-            categories => {
-                this.categories = categories;
-                this.categoryKeys = Object.keys(categories);
-            },
+            categories => this.categories = categories,
             error => this.errorMessage = <any>error);
     }
 

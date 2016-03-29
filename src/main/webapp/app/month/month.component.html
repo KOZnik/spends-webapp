@@ -7,10 +7,10 @@
     </form>
 </div>
 <div class="row" *ngIf="spends">
-    <div class="col-md-6" *ngFor="#category of categoryKeys">
+    <div class="col-md-6" *ngFor="#category of categories">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">{{categories[category]}}</h3>
+                <h3 class="panel-title">{{categoryNames[category]}}</h3>
             </div>
             <table class="table">
                 <thead>
