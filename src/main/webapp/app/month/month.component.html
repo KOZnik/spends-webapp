@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="#spend of spends[category]">
-                    <td>{{spend.created | date:"dd/MM/yyHH:mm"}}</td>
+                    <td>{{spend.created | date:"dd.MM"}}</td>
                     <td>{{spend.description}}</td>
                     <td>{{spend.amount}}</td>
                 </tr>
