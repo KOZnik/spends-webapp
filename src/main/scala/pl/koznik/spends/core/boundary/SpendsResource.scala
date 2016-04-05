@@ -1,16 +1,15 @@
 package pl.koznik.spends.core.boundary
 
-import java.time.{LocalDateTime, ZoneOffset}
+import java.time.ZoneOffset
 import javax.inject.Inject
-import javax.validation.constraints.NotNull
+import javax.validation.Valid
 import javax.ws.rs._
 import javax.ws.rs.core.{MediaType, Response}
 import javax.xml.bind.annotation.XmlRootElement
 
-import com.typesafe.config.{Config, ConfigFactory}
 import pl.koznik.spends.common.control.Converters._
 import pl.koznik.spends.core.control.SpendsRepository
-import pl.koznik.spends.core.entity.{Category, Spend}
+import pl.koznik.spends.core.entity.Category
 
 import scala.beans.BeanProperty
 import scala.collection.JavaConversions
@@ -41,15 +40,10 @@ class SpendsResource {
   }
 
   @POST
-  def add(@FormParam("category") categoryName: String,
-          @NotNull @FormParam("amount") amount: Double,
-          @FormParam("description") description: String,
-          @FormParam("date") date: String): Response = {
-    val spend = new Spend(Option.apply(date).map(LocalDateTime.parse(_)).getOrElse(LocalDateTime.now()),
-      Category.forName(categoryName).orElse(Option.apply(Category.UNKNOWN)).get,
-      amount, description)
-    spendsRepository create spend
-    Response.ok().build()
+  @Consumes(Array(MediaType.APPLICATION_JSON))
+  def add(@Valid spendRequest: SpendRequest): Response = {
+    spendsRepository create spendRequest.toSpend()
+    Response.ok(spendRequest).build()
   }
 
 }
