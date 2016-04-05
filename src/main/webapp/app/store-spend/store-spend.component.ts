@@ -31,7 +31,11 @@ export class StoreSpendComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log("submit");
+        this._spendService.storeSpend(this.spend)
+            .subscribe(
+                spend  => console.log(spend),
+                error =>  this.errorMessage = <any>error);
+        //console.log(this.spend);
     }
 
 }
