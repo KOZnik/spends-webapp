@@ -29,7 +29,7 @@ export class SpendService {
 
     storeSpend(spend: Spend) : Observable<Spend> {
         let body = JSON.stringify(spend);
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
         return this.http.post(this._spendsUrl, body, options)

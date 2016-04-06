@@ -12,7 +12,8 @@ import {Calendar} from "primeng/primeng";
     directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, Calendar]
 })
 export class StoreSpendComponent implements OnInit {
-    errorMessage;
+    errorMessages;
+    success:boolean = false;
     spend:Spend = new Spend("", 0, "", 0);
     categoryNames:CategoryNames = new CategoryNames();
 
@@ -25,15 +26,21 @@ export class StoreSpendComponent implements OnInit {
 
     getCategories() {
         this._categoryService.getCategories().subscribe(
-            error => this.errorMessage = <any>error);
+            categories => categories,
+            error => this.errorMessages = <any>error);
     }
 
     onSubmit() {
         this._spendService.storeSpend(this.spend)
             .subscribe(
-                spend  => console.log(spend),
-                error =>  this.errorMessage = <any>error);
-        //console.log(this.spend);
+                spend  => this.showSuccessMessage(5),
+                error =>  this.errorMessages = <any>error);
+    }
+
+    private showSuccessMessage(seconds: number) {
+        this.success=true;
+        this.errorMessages = "";
+        setTimeout(() => this.success=false, seconds * 1000);
     }
 
 }

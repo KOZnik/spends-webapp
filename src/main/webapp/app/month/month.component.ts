@@ -28,11 +28,13 @@ export class MonthComponent implements OnInit {
 
     getCategories() {
         this._categoryService.getCategories().subscribe(
+            categories => categories,
             error => this.errorMessage = <any>error);
     }
 
     getSpends(year:number, month:number) {
         this._spendService.getSpends(year, month).subscribe(
+            spends => spends,
             error => this.errorMessage = <any>error);
     }
 

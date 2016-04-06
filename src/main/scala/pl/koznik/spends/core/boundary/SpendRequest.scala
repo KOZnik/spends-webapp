@@ -12,18 +12,18 @@ import scala.beans.BeanProperty
 @XmlRootElement
 class SpendRequest {
 
-  @Pattern(regexp = "FOOD|MY|WIFE|SON|CAR|TAXES|DIFFERENT|UNKNOWN")
+  @Pattern(regexp = "FOOD|MY|WIFE|SON|CAR|TAXES|DIFFERENT|UNKNOWN", message = "{validation.wrongCategory}")
   @BeanProperty
   var category: String = _
 
   @BeanProperty
   var description: String = _
 
-  @Min(1)
+  @Min(1, message = "{validation.wrongAmount}")
   @BeanProperty
   var amount: Double = _
 
-  @Pattern(regexp = "^((19|20)\\d\\d)-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$")
+  @Pattern(regexp = "^((19|20)\\d\\d)-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$", message = "{validation.wrongDate}")
   @BeanProperty
   var created: String = _
 
