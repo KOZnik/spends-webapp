@@ -6,6 +6,9 @@ import {Spend} from "../entity/spend";
 
 @Injectable()
 export class SpendService {
+
+    spends:{ [key:string]:Spend[]; };
+
     constructor(private http:Http) {
     }
 
@@ -17,7 +20,10 @@ export class SpendService {
         params.set('forMonth', month.toString());
         return this.http.get(this._spendsUrl, {search: params})
             .map(res => res.json())
-            .do(data => console.log(data))
+            .do(spends => {
+                console.log(spends);
+                this.spends = spends;
+            })
             .catch(SpendService.handleError);
     }
 
@@ -28,7 +34,17 @@ export class SpendService {
 
         return this.http.post(this._spendsUrl, body, options)
             .map(res =>  <Spend> res.json())
+            .do(spend => this.addSpend(spend))
             .catch(SpendService.handleError)
+    }
+
+    private addSpend(spend: Spend) {
+        let spendsCategory = this.spends[spend.category];
+        if(spendsCategory) {
+            spendsCategory.push(spend);
+        } else {
+            this.spends[spend.category] = [spend];
+        }
     }
 
     private static handleError(error:Response) {

@@ -1,18 +1,24 @@
-<button class="btn btn-info" data-toggle="collapse" data-target="#testtesttest">Dodaj</button>
+<div class="row">
+    <form class="form-inline col-md-2">
+        <div class="form-group">
+            <button class="btn btn-info" data-toggle="collapse" data-target="#collapse-add-spend-panel">Dodaj</button>
+        </div>
+    </form>
+</div>
 
-<div id="testtesttest" class="collapse panel panel-default">
+<div id="collapse-add-spend-panel" class="collapse panel panel-default">
     <div class="panel-body">
         <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
             <div class="form-group">
                 <label for="categories">Kategoria</label>
                 <select id="categories" class="form-control" required [(ngModel)]="spend.category" ngControl="category" #category="ngForm">
-                    <option *ngFor="#category of categories" [value]="category">{{categoryNames[category]}}</option>
+                    <option *ngFor="#category of _categoryService.categories" [value]="category">{{categoryNames[category]}}</option>
                 </select>
                 <div [hidden]="category.valid || category.pristine" class="alert alert-danger">Kategoria jest wymagana!</div>
             </div>
             <div class="form-group">
                 <label for="amount">Kwota</label>
-                <input id="amount" type="number" min="0" class="form-control" required [(ngModel)]="spend.amount" ngControl="amount" #amount="ngForm">
+                <input id="amount" type="number" step="0.01" min="1" class="form-control" required [(ngModel)]="spend.amount" ngControl="amount" #amount="ngForm">
                 <div [hidden]="amount.valid || amount.pristine" class="alert alert-danger">Niepoprawna kwota!</div>
             </div>
             <div class="form-group">

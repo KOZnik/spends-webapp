@@ -31,7 +31,7 @@ class SpendsResource {
   }
 
   @XmlRootElement
-  class SpendResponse(@BeanProperty val created: Long, @BeanProperty val description: String, @BeanProperty val amount: Double)
+  class SpendResponse(@BeanProperty val created: Long, @BeanProperty val description: String, @BeanProperty val amount: Double, @BeanProperty val category: String = "")
 
   @GET
   @Path("categories")
@@ -42,8 +42,10 @@ class SpendsResource {
   @POST
   @Consumes(Array(MediaType.APPLICATION_JSON))
   def add(@Valid spendRequest: SpendRequest): Response = {
-    spendsRepository create spendRequest.toSpend()
-    Response.ok(spendRequest).build()
+    val spend = spendsRepository create spendRequest.toSpend()
+    Response.ok(
+      new SpendResponse(spend.getCreated.toInstant(ZoneOffset.ofTotalSeconds(60 * 60)).toEpochMilli, spend.getDescription, spend.getAmount, spend.getCategory.toString)
+    ).build()
   }
 
 }

@@ -5,6 +5,9 @@ import "rxjs/Rx";
 
 @Injectable()
 export class CategoryService {
+
+    categories:string[];
+
     constructor(private http:Http) {
     }
 
@@ -13,7 +16,10 @@ export class CategoryService {
     getCategories() {
         return this.http.get(this._categoriesUrl)
             .map(res => res.json())
-            .do(data => console.log(data))
+            .do(categories => {
+                console.log(categories);
+                this.categories = categories;
+            })
             .catch(CategoryService.handleError);
     }
 

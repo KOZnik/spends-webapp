@@ -15,29 +15,24 @@ import {CategoryNames} from "../entity/category-names";
 })
 export class MonthComponent implements OnInit {
     date:string = "";
-    categories:string[];
     categoryNames:CategoryNames = new CategoryNames();
-    spends:{ [key:string]:Spend; };
     errorMessage;
 
     constructor(private _categoryService:CategoryService, private _spendService:SpendService) {
     }
 
     ngOnInit() {
-        this.getCategories();
         let date = new Date();
         this.getSpends(date.getFullYear(), date.getMonth() + 1);
     }
 
     getCategories() {
         this._categoryService.getCategories().subscribe(
-            categories => this.categories = categories,
             error => this.errorMessage = <any>error);
     }
 
     getSpends(year:number, month:number) {
         this._spendService.getSpends(year, month).subscribe(
-            spends => this.spends = spends,
             error => this.errorMessage = <any>error);
     }
 

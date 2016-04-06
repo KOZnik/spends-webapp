@@ -12,9 +12,8 @@ import {Calendar} from "primeng/primeng";
     directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, Calendar]
 })
 export class StoreSpendComponent implements OnInit {
-    categories:string[];
     errorMessage;
-    spend:Spend = new Spend("", "", "", 0);
+    spend:Spend = new Spend("", 0, "", 0);
     categoryNames:CategoryNames = new CategoryNames();
 
     constructor(private _categoryService:CategoryService, private _spendService:SpendService) {
@@ -26,7 +25,6 @@ export class StoreSpendComponent implements OnInit {
 
     getCategories() {
         this._categoryService.getCategories().subscribe(
-            categories => this.categories = categories,
             error => this.errorMessage = <any>error);
     }
 

@@ -6,8 +6,8 @@
         </div>
     </form>
 </div>
-<div class="row" *ngIf="spends">
-    <div class="col-md-6" *ngFor="#category of categories">
+<div class="row" *ngIf="_spendService.spends">
+    <div class="col-md-6" *ngFor="#category of _categoryService.categories">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">{{categoryNames[category]}}</h3>
@@ -21,7 +21,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="#spend of spends[category]">
+                <tr *ngFor="#spend of _spendService.spends[category]">
                     <td>{{spend.created | date:"dd.MM"}}</td>
                     <td>{{spend.description}}</td>
                     <td>{{spend.amount}}</td>
