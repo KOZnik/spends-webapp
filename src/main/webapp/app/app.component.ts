@@ -5,12 +5,13 @@ import {HTTP_PROVIDERS} from "angular2/http";
 import {SpendService} from "./service/spend.service";
 import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from "angular2/router";
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {MonthlyStatisticsService} from "./service/month-statistics.service";
 
 @Component({
     selector: 'my-app',
     templateUrl: 'app/app.component.html',
     directives: [MonthComponent, DashboardComponent, ROUTER_DIRECTIVES],
-    providers: [HTTP_PROVIDERS, ROUTER_PROVIDERS, CategoryService, SpendService]
+    providers: [HTTP_PROVIDERS, ROUTER_PROVIDERS, CategoryService, SpendService, MonthlyStatisticsService]
 })
 @RouteConfig([
     {
