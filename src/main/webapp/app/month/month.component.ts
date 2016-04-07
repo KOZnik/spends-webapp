@@ -1,16 +1,16 @@
 import {Component, OnInit} from "angular2/core";
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from "angular2/common";
 import {Calendar} from "primeng/primeng";
-import {Spend} from "../entity/spend";
 import {ArraySortPipe} from "../pipes/array-sort.pipe";
 import {CategoryService} from "../service/category.service";
 import {SpendService} from "../service/spend.service";
 import {CategoryNames} from "../entity/category-names";
+import {StoreSpendComponent} from "../store-spend/store-spend.component";
 
 @Component({
     selector: 'my-month',
     templateUrl: "app/month/month.component.html",
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, Calendar],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, StoreSpendComponent, Calendar],
     pipes: [ArraySortPipe]
 })
 export class MonthComponent implements OnInit {

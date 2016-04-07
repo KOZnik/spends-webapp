@@ -19,7 +19,7 @@ class SpendRequest {
   @BeanProperty
   var description: String = _
 
-  @Min(1, message = "{validation.wrongAmount}")
+  @Min(value = 1, message = "{validation.wrongAmount}")
   @BeanProperty
   var amount: Double = _
 

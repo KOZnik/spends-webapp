@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-body" aria-expanded="false"></button>
+                <a class="navbar-brand" href="#">{{title}}</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-body">
+                <ul class="nav navbar-nav">
+                    <li><a style="border-left: 1px dotted #c4c4c7" [routerLink]="['Month']">Miesiąc</a></li>
+                    <li><a [routerLink]="['Dashboard']">Tablica</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <router-outlet></router-outlet>
+</div>
