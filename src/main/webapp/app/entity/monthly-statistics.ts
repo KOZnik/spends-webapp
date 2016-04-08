@@ -6,12 +6,12 @@ export class MonthlyStatistics {
     public WIFE:number;
     public DIFFERENT:number;
     public SON:number;
-    public summary:number;
+    public CAR:number;
 
     constructor() {
     }
 
-    public calculateSummary() {
-        this.summary = this.FOOD + this.TAXES + this.MY + this.WIFE + this.DIFFERENT + this.SON;
+    public get summary() {
+        return this.FOOD + this.TAXES + this.MY + this.WIFE + this.DIFFERENT + this.SON + this.CAR;
     }
 }

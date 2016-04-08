@@ -38,7 +38,7 @@ class MonthCategoryStatistics {
 
   @BeanProperty
   @ElementCollection
-  @MapKeyColumn(name = "date")
+  @MapKeyColumn(name = "date", columnDefinition = "date")
   @MapKeyTemporal(TemporalType.DATE)
   @Column(name = "amount")
   @CollectionTable(name = "month_category_statistics_amount", joinColumns = Array(new JoinColumn(name = "id")))
