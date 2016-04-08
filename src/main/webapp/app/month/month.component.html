@@ -3,8 +3,13 @@
 <div class="row" style="margin-bottom: 10px;">
     <form class="form-inline col-md-2 pull-right">
         <div class="form-group">
-            <label for="date">Data</label>
-            <p-calendar id="date" [(value)]="date" dateFormat="yy-mm-dd" (onSelect)="dateChanged($event)"></p-calendar>
+            <label for="year">Data</label>
+            <select id="year" class="form-control" [(ngModel)]="year" (change)="yearChanged($event.target.value)">
+                <option *ngFor="#year of availableYears" [value]="year">{{year}}</option>
+            </select>
+            <select id="month" class="form-control" [(ngModel)]="month" (change)="monthChanged($event.target.value)">
+                <option *ngFor="#month of availableMonths" [value]="month">{{month}}</option>
+            </select>
         </div>
     </form>
 </div>
